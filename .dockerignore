@@ -1,0 +1,20 @@
+# Python
+**/__pycache__/
+**/*.pyc
+backend/.venv/
+backend/venv/
+
+# Secrets & local state (provided via Render env vars / secret files instead)
+backend/.env
+backend/credentials.json
+backend/token.json
+backend/data/*.db
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Misc
+.git/
+.DS_Store
+*.log
