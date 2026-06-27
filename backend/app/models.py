@@ -90,6 +90,19 @@ class Escalation(Base):
     email = relationship("Email", back_populates="escalation")
 
 
+class AppSetting(Base):
+    """Generic key/value store for app state that must persist (e.g. Gmail OAuth token).
+
+    Kept in the DB rather than a local file so it survives on ephemeral hosts (Render
+    free tier) and is shared across environments pointing at the same database.
+    """
+    __tablename__ = "app_settings"
+
+    key = Column(String, primary_key=True)
+    value = Column(Text, nullable=True)
+    updated_at = Column(DateTime, default=utcnow, onupdate=utcnow)
+
+
 class KBArticle(Base):
     __tablename__ = "kb_articles"
 
