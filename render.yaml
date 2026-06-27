@@ -22,3 +22,5 @@ services:
         value: /etc/secrets/credentials.json
       - key: GOOGLE_OAUTH_REDIRECT_URI
         sync: false          # set to your onrender.com callback URL
+      - key: DATABASE_URL
+        sync: false          # free Postgres (Neon/Supabase) connection string

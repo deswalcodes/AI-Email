@@ -4,9 +4,14 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 
 from app.core.config import settings
 
+# check_same_thread is a SQLite-only arg; Postgres (psycopg2) must not receive it.
+_connect_args = (
+    {"check_same_thread": False} if settings.database_url.startswith("sqlite") else {}
+)
 engine = create_engine(
     settings.database_url,
-    connect_args={"check_same_thread": False},  # needed for SQLite + threads
+    connect_args=_connect_args,
+    pool_pre_ping=True,  # recycle dead connections (matters for hosted Postgres)
 )
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
